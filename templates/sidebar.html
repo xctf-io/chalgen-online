@@ -30,18 +30,23 @@
                   <select id="countries"
                      class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-l-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                      <option selected>Select a competition</option>
-                     <option value="mcpshsf2024">mcpshsf2024</option>
-                     <option value="Case of the KhetarKoin">Case of the KhetarKoin</option>
+                     {% for comp in list_comps() %}
+                     <option value="{{ comp }}">{{ comp }}</option>
+                     {% endfor %}
                   </select>
+                  <button type="submit"
+                        class="p-2.5 text-sm font-medium text-white bg-blue-700 border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"><svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                           <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+                         </svg></button>
                   <div class="relative">
-                     <button type="submit"
+                        <button type="submit" formaction="/createcomp"
                         class="top-0 end-0 p-2.5 h-full text-sm font-medium text-white bg-blue-700 rounded-e-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"><svg
-                           class="w-4 h-4" aria-hidden="true"
-                           xmlns="http://www.w3.org/2000/svg"
-                           fill="currentColor" viewBox="0 0 20 20">
-                           <path
-                              d="M9.546.5a9.5 9.5 0 1 0 9.5 9.5 9.51 9.51 0 0 0-9.5-9.5ZM13.788 11h-3.242v3.242a1 1 0 1 1-2 0V11H5.304a1 1 0 0 1 0-2h3.242V5.758a1 1 0 0 1 2 0V9h3.242a1 1 0 1 1 0 2Z" />
-                        </svg></button>
+                        class="w-4 h-4" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                           d="M9.546.5a9.5 9.5 0 1 0 9.5 9.5 9.51 9.51 0 0 0-9.5-9.5ZM13.788 11h-3.242v3.242a1 1 0 1 1-2 0V11H5.304a1 1 0 0 1 0-2h3.242V5.758a1 1 0 0 1 2 0V9h3.242a1 1 0 1 1 0 2Z" />
+                     </svg></button>
                   </div>
                </div>
             </form>
@@ -141,7 +146,6 @@
                      <option value="Fesbuc">Fesbuc</option>
                      <option value="Tweepy">Tweepy</option>
                      <option value="Fileserver">File Server</option>
-                     <option value="Germany">Germany</option>
                   </select>
                   <div class="relative">
                      <button type="submit"

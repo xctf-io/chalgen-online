@@ -62,3 +62,10 @@ Competition generated using CHALGEN-Online - Created by Agneya Tharun
         'homepage': 'Home.md'
     }
     create_yaml(os.path.join('competitions',name,'config.yaml'),data)
+
+def list_all_comps():
+    current_directory = os.getcwd()
+    dir = os.listdir(os.path.join(current_directory,"competitions"))
+    return dir
+
+print(list_all_comps())

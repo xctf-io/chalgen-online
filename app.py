@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-from app_utilities import create_folder, create_empty_comp, folder_occupied
+from app_utilities import create_folder, create_empty_comp, folder_occupied, list_all_comps
 
 app = Flask(__name__)
 
@@ -10,8 +10,9 @@ def index():
 
 @app.route("/create")
 def create():
-	if (folder_occupied("competitions")):
-		return render_template('initcomp.html')
+	# Check if at least one competition has been made, if not then force them to initcomp
+	if (not folder_occupied("competitions")):
+		return redirect(url_for('createcomp'))
 	else:
 		return render_template("create.html")
 
@@ -21,13 +22,9 @@ def edithome():
 
 @app.route("/initcomp", methods=('GET', 'POST'))
 def initcomp():
-
-
 	# Check if comp has already been made, and if it has then dont allow access to initcomp again
+	# Decisions been made: user can create mutiple competitions if they want to. therefore initcomp can be called
 
-	# Decisions been made: user can create mutiple competitions if they want to
-
-	# if request.method == 'POST' and COMP_EXISTS == False:
 	if request.method == 'POST':
 		compname = request.form['compname']
 		compauthor = request.form['compauthor']
@@ -39,6 +36,16 @@ def initcomp():
 		return redirect(url_for('create'))
 	else:
 		return redirect(url_for('create'))
+
+@app.route("/createcomp", methods=('GET', 'POST'))
+def createcomp():
+	return render_template("initcomp.html")
+
+@app.context_processor
+def utility_processor():
+	def list_comps():
+		return list_all_comps()
+	return dict(list_comps=list_comps)
 
 if __name__ == '__main__':
 	app.run(debug=True)
