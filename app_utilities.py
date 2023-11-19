@@ -29,6 +29,14 @@ def create_yaml(name,data):
     with open(name, 'w') as yaml_file:
         yaml.dump(data, yaml_file)
 
+def folder_occupied(path):
+    current_directory = os.getcwd()
+    dir = os.listdir(os.path.join(current_directory,"competitions"))
+    if len(dir) == 0:
+        return False
+    else:
+        return True
+
 def create_empty_comp(name,author,skill,description):
     comp_dir = os.path.join('competitions', name)
     create_folder(comp_dir)

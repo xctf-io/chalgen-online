@@ -1,19 +1,16 @@
 from flask import Flask, render_template, request, redirect, url_for
-from app_utilities import create_folder, create_empty_comp
+from app_utilities import create_folder, create_empty_comp, folder_occupied
 
 app = Flask(__name__)
 
-INIT_COMP = False
-
 @app.route("/")
-@app.route("/index")
+@app.route("/home")
 def index():
 	return render_template("index.html")
 
 @app.route("/create")
 def create():
-	global INIT_COMP
-	if (INIT_COMP == False):
+	if (folder_occupied("competitions")):
 		return render_template('initcomp.html')
 	else:
 		return render_template("create.html")
@@ -27,8 +24,10 @@ def initcomp():
 
 
 	# Check if comp has already been made, and if it has then dont allow access to initcomp again
-	global INIT_COMP
-	# if request.method == 'POST' and INIT_COMP == False:
+
+	# Decisions been made: user can create mutiple competitions if they want to
+
+	# if request.method == 'POST' and COMP_EXISTS == False:
 	if request.method == 'POST':
 		compname = request.form['compname']
 		compauthor = request.form['compauthor']
@@ -37,7 +36,6 @@ def initcomp():
 
 		# Create empty comp
 		create_empty_comp(compname,compauthor,compskill,compdescription)
-		INIT_COMP = True
 		return redirect(url_for('create'))
 	else:
 		return redirect(url_for('create'))
