@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+   <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>CHALGEN Online</title>
+      <!-- <link rel="stylesheet" href="{{url_for('static',filename='dist/css/output.css')}}"> -->
+      <link
+         href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.1.1/flowbite.min.css"
+         rel="stylesheet" />
+
+   </head>
+
+   <body>
+      {% include 'creatornav.html' %}
+      {% include 'sidebar.html' %}
+
+      <p class="pt-10">&nbsp;</p>
+      <div
+         class="p-4 sm:ml-64">
+         <section class="bg-white dark:bg-gray-900">
+            <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
+               <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Edit Home.md</h2>
+               <form method="post" action="/initcomp">
+                  <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+                    <div class="sm:col-span-2">
+                        <label for="compdescription" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Provide a brief description</label>
+                        <textarea id="compdescription" name="compdescription" rows="8" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="You can change this later."></textarea>
+                    </div>
+                  </div>
+                  <button type="submit" class="text-white bg-indigo-500 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                     Create
+                 </button>
+               </form>
+            </div>
+         </section>
+      </div>
+
+      <script
+         src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.1.1/flowbite.min.js"></script>
+
+   </body>

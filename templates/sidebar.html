@@ -27,7 +27,7 @@
          <li class="pt-2">
             <form method="post" action="/selectcomp">
                <div class="flex">
-                  <select id="countries"
+                  <select id="competitions" name="competitions"
                      class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-l-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                      <option selected>Select competition</option>
                      {% for comp in list_comps() %}
@@ -50,6 +50,9 @@
                   </div>
                </div>
             </form>
+         </li>
+         <li>
+            <h1 class="pt-2">Selected Comp: {{ get_selected_comp() }}</h1>
          </li>
       </ul>
       <ul class="pt-5 mt-5 space-y-2 border-t border-gray-200 dark:border-gray-700">

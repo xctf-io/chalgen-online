@@ -3,6 +3,8 @@ from app_utilities import create_folder, create_empty_comp, folder_occupied, lis
 
 app = Flask(__name__)
 
+SELECTED_COMP = None
+
 @app.route("/")
 @app.route("/home")
 def index():
@@ -19,6 +21,12 @@ def create():
 @app.route("/edithome")
 def edithome():
 	return render_template("edithome.html")
+
+@app.route("/selectcomp", methods=('GET', 'POST'))
+def selectcomp():
+	global SELECTED_COMP
+	SELECTED_COMP = request.form['competitions']
+	return redirect(url_for('create'))
 
 @app.route("/initcomp", methods=('GET', 'POST'))
 def initcomp():
@@ -46,6 +54,12 @@ def utility_processor():
 	def list_comps():
 		return list_all_comps()
 	return dict(list_comps=list_comps)
+
+@app.context_processor
+def utility_processor():
+	def get_selected_comp():
+		return SELECTED_COMP
+	return dict(get_selected_comp=get_selected_comp)
 
 if __name__ == '__main__':
 	app.run(debug=True)

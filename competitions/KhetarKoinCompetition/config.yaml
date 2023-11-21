@@ -1,0 +1,5 @@
+entrypoint:
+  - Fesbuc
+admin_email: admin@admin.com
+admin_password: ctfgadministrator
+homepage: Home.md
