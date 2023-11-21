@@ -68,4 +68,21 @@ def list_all_comps():
     dir = os.listdir(os.path.join(current_directory,"competitions"))
     return dir
 
-print(list_all_comps())
+def retrieve_first_comp():
+    return list_all_comps()[0]
+
+def extract_text(dir,filename):
+    current_directory = os.getcwd()
+    with open(os.path.join(current_directory,dir,filename),'r') as file:
+        contents = file.read()
+    return contents
+
+def overwrite_file(dir,text):
+    current_directory = os.getcwd()
+    if (os.path.exists(os.path.join(current_directory,dir))):
+        os.remove(os.path.join(current_directory,dir))
+    else:
+        pass
+    create_file(os.path.join(current_directory,dir),text)
+
+# print(extract_text('competitions'+'/KhetarKoinCompetition','Home.md'))

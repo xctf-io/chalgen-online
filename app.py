@@ -1,9 +1,13 @@
 from flask import Flask, render_template, request, redirect, url_for
-from app_utilities import create_folder, create_empty_comp, folder_occupied, list_all_comps
+from app_utilities import *
+import os
 
 app = Flask(__name__)
 
-SELECTED_COMP = None
+if (not folder_occupied("competitions")):
+	SELECTED_COMP = None
+else:
+	SELECTED_COMP = retrieve_first_comp()
 
 @app.route("/")
 @app.route("/home")
@@ -16,16 +20,35 @@ def create():
 	if (not folder_occupied("competitions")):
 		return redirect(url_for('createcomp'))
 	else:
-		return render_template("create.html")
+		return redirect(url_for('edithome'))
 
 @app.route("/edithome")
 def edithome():
-	return render_template("edithome.html")
+	global SELECTED_COMP
+	if (SELECTED_COMP == None):
+		return redirect(url_for('createcomp'))
+	else:
+		return render_template("edithome.html")
+	
+@app.route("/savehome", methods=('GET', 'POST'))
+def savehome():
+	if request.method == 'POST':
+		saved_text = request.form['hometext']
+		# sanitized_text = saved_text.replace('','\n')
+		# overwrite_file(str(SELECTED_COMP)+'/Home.md',saved_text)
+		print(saved_text)
+		print(saved_text.count('\n'))
+		overwrite_file(os.path.join('competitions',str(SELECTED_COMP),'Home.md'),saved_text)
+	return redirect(url_for('edithome'))
 
 @app.route("/selectcomp", methods=('GET', 'POST'))
 def selectcomp():
 	global SELECTED_COMP
 	SELECTED_COMP = request.form['competitions']
+
+	if (SELECTED_COMP == 'Select competition'):
+		SELECTED_COMP = retrieve_first_comp()
+
 	return redirect(url_for('create'))
 
 @app.route("/initcomp", methods=('GET', 'POST'))
@@ -60,6 +83,12 @@ def utility_processor():
 	def get_selected_comp():
 		return SELECTED_COMP
 	return dict(get_selected_comp=get_selected_comp)
+
+@app.context_processor
+def utility_processor():
+	def get_home():
+		return extract_text('competitions/'+str(SELECTED_COMP),'Home.md')
+	return dict(get_home=get_home)
 
 if __name__ == '__main__':
 	app.run(debug=True)
