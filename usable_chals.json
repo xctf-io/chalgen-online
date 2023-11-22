@@ -1,0 +1,7 @@
+{
+    "environments": ["Fesbuc","Tweepy","File Share"],
+    "challenges": [
+        "test1",
+        "test2"
+    ]
+}
