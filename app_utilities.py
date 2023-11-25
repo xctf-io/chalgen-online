@@ -1,5 +1,6 @@
 import os
 import ruamel.yaml
+import json
 
 # Creates a folder anywhere in the chalgen-online folder, paths deeper must be specified
 def create_folder(name):
@@ -84,5 +85,27 @@ def overwrite_file(dir,text):
     else:
         pass
     create_file(os.path.join(current_directory,dir),text)
+
+def get_all_environments():
+    with open(os.path.join(os.getcwd(),'usable_chals.json'),'r') as file:
+        data = json.load(file)
+    return data['environments']
+
+def get_environments(comp_name):
+    directory = os.path.join(os.getcwd(),'competitions',comp_name,'chals')
+
+    all_environments = get_all_environments()
+    
+    all_folders = [item for item in os.listdir(directory) if os.path.isdir(os.path.join(directory, item))]
+
+    existing_environments = []
+    
+    for folder in all_folders:
+        if folder in all_environments:
+            existing_environments.append(folder)
+    
+    return existing_environments
+
+print(get_environments('mcpshsf2024'))
 
 # print(extract_text('competitions'+'/KhetarKoinCompetition','Home.md'))

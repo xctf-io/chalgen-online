@@ -36,9 +36,10 @@ def savehome():
 		saved_text = request.form['hometext']
 		# sanitized_text = saved_text.replace('','\n')
 		# overwrite_file(str(SELECTED_COMP)+'/Home.md',saved_text)
+		sanitized_text = saved_text.replace('\r\n', '\n').replace('\r', '\n')  # Replace different newline formats
 		print(saved_text)
 		print(saved_text.count('\n'))
-		overwrite_file(os.path.join('competitions',str(SELECTED_COMP),'Home.md'),saved_text)
+		overwrite_file(os.path.join('competitions',str(SELECTED_COMP),'Home.md'),sanitized_text)
 	return redirect(url_for('edithome'))
 
 @app.route("/selectcomp", methods=('GET', 'POST'))
@@ -89,6 +90,18 @@ def utility_processor():
 	def get_home():
 		return extract_text('competitions/'+str(SELECTED_COMP),'Home.md')
 	return dict(get_home=get_home)
+
+@app.context_processor
+def utility_processor():
+	def get_all_environments():
+		return get_all_environments()
+	return dict(get_all_environments=get_all_environments)
+
+@app.context_processor
+def utility_processor():
+	def get_environments():
+		return get_environments(SELECTED_COMP)
+	return dict(get_environments=get_environments)
 
 if __name__ == '__main__':
 	app.run(debug=True)

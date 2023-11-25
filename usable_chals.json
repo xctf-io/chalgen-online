@@ -1,7 +1,13 @@
 {
-    "environments": ["Fesbuc","Tweepy","File Share"],
+    "environments": [
+        "Fesbuc",
+        "Tweepy",
+        "FileShare"
+    ],
     "challenges": [
-        "test1",
-        "test2"
+        "CaesarCipher",
+        "Base64",
+        "VigenereCipher",
+        "DocxCarving"
     ]
 }
